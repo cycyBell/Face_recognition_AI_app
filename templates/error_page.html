@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>Scan Unsuccessful</title>
+  <style>
+    body {
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .message-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .message-container h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .message-container p {
+      font-size: 16px;
+      color: #777;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="message-container">
+    <h1>Operation Unsuccessful</h1>
+    <p>This Operation could not be completed due to a network connection issue. Please check your internet connection and try again.</p>
+  </div>
+</body>
+</html>

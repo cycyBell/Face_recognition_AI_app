@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back to life</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        span {
+            color: rgb(184, 26, 39);
+            font-size: 20px;
+        }
+        .message {
+            height: 44vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+       
+        }
+        .message a{
+            text-decoration: none;
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+	<div class="header">
+		<a href="/" class="logo">AI Powered</a>
+		<div class="header-right">
+		  <a class="active" href="#">Rate</a>
+		  
+		  {% if status != "Log in" %}
+		  	<a href="/logout">{{status}}</a>
+		  {% else %}
+		  	<a href="/login_signup">{{status}}</a>
+		  {% endif %}
+		  {% if current_user != "User" %}
+		  	<a id="user" href="#about">{{current_user}}</a>
+		  {% else %}
+		  	<a href="#about">{{current_user}}</a>
+		  {% endif %}
+		</div>
+	</div>
+    <div class="message">
+        <div class="succes_text">
+            <span>Your face is not scanned yet. You need to scan it first. <a href="/home_recog">Scan Here</a></span>
+            
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan Successful</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .message-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .message-container h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #3c763d;  /* Green for success */
+    }
+    .message-container p {
+      font-size: 16px;
+      color: #777;
+      line-height: 1.5;
+    }
+    .message-container a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3c763d;  /* Green for success */
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .message-container a:hover {
+      background-color: #27502e;  /* Darker green on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="message-container">
+    <h1>Successful scan!</h1>
+    <p>Your scan was successful. Click the button below to try out the model.</p>
+    <a href="/home_recog">Click here to try out the model</a>
+  </div>
+</body>
+</html>

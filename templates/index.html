@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discovering AI hidden beauty</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+
+<body>
+
+	<div class="header">
+		<a href="/" class="logo">AI Powered</a>
+		<div class="header-right">
+		  <a class="active" href="#">Rate</a>
+		  
+		  {% if status != "Log in" %}
+		  	<a href="/logout">{{status}}</a>
+		  {% else %}
+		  	<a href="/login_signup">{{status}}</a>
+		  {% endif %}
+		  {% if current_user != "User" %}
+		  	<a id="user" href="#about">{{current_user}}</a>
+		  {% else %}
+		  	<a href="#about">{{current_user}}</a>
+		  {% endif %}
+		</div>
+	</div>
+	<div class="tasks">
+		<div class="container">
+			<div class="btn"><a href="/face_first">Face Recognition</a></div>
+			<div class="btn"><a href="#" >Machine Learning API</a></div>
+					<div class="btn"><a href="#" >Towards AI powered models</a></div>
+
+		</div>	
+	</div>	
+</body>
+<!-- partial -->
+  
+</body>
+</html>
