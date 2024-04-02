@@ -29,7 +29,7 @@ Getting Started
 
 Bash
 ```
-git clone https://github.com/your-username/face-recognition-app.git
+git clone https://github.com/cycyBell/Face_recognition_AI_app.git
 
 ```
 Use code with caution.
