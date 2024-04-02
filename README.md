@@ -33,7 +33,7 @@ Bash
 git clone https://github.com/cycyBell/Face_recognition_AI_app.git
 
 ```
-Use code with caution.
+
 
 **Install dependencies:**
 
@@ -42,7 +42,6 @@ Bash
 pip install -r requirements.txt
 ```
 
-Use code with caution.
 
 **(Optional) Download pre-trained models:**
 
