@@ -3,18 +3,18 @@ This repository packs a powerful punch: a face detection and recognition applica
 
 ***What's inside?***
 
-**Flask API**: A lightweight and versatile framework for building the application's backend.
-**MTCNN**: A lightning-fast face detection model to pinpoint those mugshots with precision.
-**Keras-Facenet**: Leverages deep learning to generate unique facial embeddings, unlocking the power of recognition.
-**OpenCV**: The king of real-time computer vision, enabling image processing and manipulation.
+**Flask API**: A lightweight and versatile framework for building the application's backend.<br>
+**MTCNN**: A lightning-fast face detection model to pinpoint those mugshots with precision.<br>
+**Keras-Facenet**: Leverages deep learning to generate unique facial embeddings, unlocking the power of recognition.<br>
+**OpenCV**: The king of real-time computer vision, enabling image processing and manipulation.<br>
 **TensorFlow**: The muscle behind it all, providing the deep learning foundation.
 
 
 ***Why choose this?***
 
-Modern Stack: Utilizes the latest and greatest libraries for superior performance and maintainability.
-Modular Design: Code is well-structured for easy understanding and customization.
-Ready to Run: Get started quickly with clear instructions and pre-trained models (where applicable).
+**Modern Stack:** Utilizes the latest and greatest libraries for superior performance and maintainability.<br>
+**Modular Design:** Code is well-structured for easy understanding and customization.
+**Ready to Run:** Get started quickly with clear instructions and pre-trained models (where applicable).
 
 
 ***Who's it for?***
@@ -22,10 +22,11 @@ Ready to Run: Get started quickly with clear instructions and pre-trained models
 Developers curious about building face recognition applications.
 Hobbyists looking for a deep dive into computer vision and deep learning.
 Anyone interested in exploring the power of facial recognition technology.
-Getting Started
+
+***Getting Started***
 
 
-***Clone the repository:***
+**Clone the repository:**
 
 Bash
 ```
@@ -34,7 +35,7 @@ git clone https://github.com/cycyBell/Face_recognition_AI_app.git
 ```
 Use code with caution.
 
-***Install dependencies:***
+**Install dependencies:**
 
 Bash
 ```
@@ -43,17 +44,16 @@ pip install -r requirements.txt
 
 Use code with caution.
 
-***(Optional) Download pre-trained models:***
+**(Optional) Download pre-trained models:**
 
 Some models may require separate download. Refer to the models folder for instructions.
 
-Run the app:
+**Run the app:**
 
 Bash
 ```
 python app.py
 ```
-Use code with caution.
 
 This will start the Flask server. APIs for face detection and recognition will be available.
 
