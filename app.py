@@ -35,6 +35,11 @@ def face_first():
         return redirect(url_for("home_recog"))
     else:
         return redirect(url_for('sign_in_up'))
+    
+@app.route('/already-scanned')
+def already_scanned():
+    return render_template('already_scanned.html')
+
 
 @app.route("/scan")
 def scan():

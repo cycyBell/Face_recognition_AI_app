@@ -15,3 +15,6 @@ def get_dbase():
         return client['Data_Scientists']
     except Exception as e:
         print(e)
+
+
+        
