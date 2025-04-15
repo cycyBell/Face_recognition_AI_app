@@ -7,3 +7,5 @@ mtcnn
 keras-facenet
 flask
 pymongo
+opencv-python
+
