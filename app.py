@@ -61,7 +61,7 @@ def scanning_cam():
     return render_template('scanning_camera.html')
 
 @app.route("/searching_camera")
-def scanning_cam():
+def searching_cam():
     return render_template('searching_camera.html')
 
 @app.route("/search")
