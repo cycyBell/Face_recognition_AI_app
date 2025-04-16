@@ -69,16 +69,14 @@ def search():
 
 @app.route('/model_testing')
 def model_testing():
-    username = session.get("username")   
-   
-    df= pd.read_csv("user_embedding.csv")
-    _, n = df.shape
-    embed = df.loc[0,:n-2].to_numpy()
     try:
-
+        username = session.get("username")
+        user = db_collection.find_one({'Email': username})
+        
+        stored_embedding = np.array(user["Embedding"])    
         face = collect_data()
         embed_im = get_embeddings(face[0])
-        cos = cosine(embed,embed_im)
+        cos = cosine(stored_embedding,embed_im)
         if cos >= 0.5:
             return render_template('succ_search.html', username = username)
         else:
@@ -108,15 +106,15 @@ def model_training():
         
         username = session.get("username")   
         query = {'Email' : username}
-        user = db_collection.find_one(query)
-        em = list(embed_im)
-        em.append(user["Name"])
-        df = pd.DataFrame(columns = range(len(em)))
-        df.loc[len(df.index)] = em
-        newvalues = { "$set": { "Face_model": "Scanned" } }
+
+        newvalues = {
+            "$set": {
+                "Face_model": "Scanned",
+                "Embedding": embed_im.tolist() # A list of face embeddings
+            }
+        }
+
         db_collection.update(query,newvalues)
-        
-        df.to_csv("images_emb.csv")
     
         return render_template('succ_scan.html')
     except:
