@@ -1,0 +1,51 @@
+<!-- camera.html -->
+<video id="video" width="320" height="240" autoplay></video>
+<canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+
+<script>
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext('2d');
+  let scanning = true;
+
+  // Ask for webcam access
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      video.srcObject = stream;
+
+      // Start scanning after video is playing
+      video.onloadedmetadata = () => {
+        scanLoop(); // Start scanning
+      };
+    });
+
+  function scanLoop() {
+    if (!scanning) return;
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL = canvas.toDataURL('image/jpeg');
+
+    fetch('/model_training', {
+      method: 'POST',
+      body: JSON.stringify({ image: dataURL }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        scanning = false;
+        alert("Face detected and scanned successfully!");
+        window.location.href = "/success"; // Redirect or do something
+      } else {
+        // Face not found, try again after a short delay
+        setTimeout(scanLoop, 1000); // scan again in 1 sec
+      }
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      setTimeout(scanLoop, 1000);
+    });
+  }
+</script>

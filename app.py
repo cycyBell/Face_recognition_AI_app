@@ -1,8 +1,10 @@
-from flask import Flask, render_template, Response, session, request, redirect, url_for
+from flask import Flask, render_template, Response, session, request, redirect, url_for,jsonify
 import cv2
 from get_dbase import get_dbase
-import pandas as pd
 import numpy as np
+import base64
+from mtcnn import MTCNN
+
 
 
 from datacollection import *
@@ -54,6 +56,14 @@ def scan():
     else:
         return redirect(url_for('sign_in_up'))
 
+@app.route("/scanning_camera")
+def scanning_cam():
+    return render_template('scanning_camera.html')
+
+@app.route("/searching_camera")
+def scanning_cam():
+    return render_template('searching_camera.html')
+
 @app.route("/search")
 def search():
     username = session.get("username")   
@@ -74,15 +84,33 @@ def model_testing():
         user = db_collection.find_one({'Email': username})
         
         stored_embedding = np.array(user["Embedding"])    
-        face = collect_data()
-        embed_im = get_embeddings(face[0])
+        
+        data = request.get_json()
+        image_data = data['image'].split(',')[1]
+        image_bytes = base64.b64decode(image_data)
+        np_arr = np.frombuffer(image_bytes, np.uint8)
+        img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+
+        # Detect face
+        detector = MTCNN()
+        result = detector.detect_faces(img)
+        if len(result) == 0:
+            return jsonify({"success": False, "message": "No face detected"})
+        
+        face = result[0]['box']
+        x, y, w, h = face
+        face_img = img[y:y+h, x:x+w]
+
+
+        embed_im = get_embeddings(face_img)
         cos = cosine(stored_embedding,embed_im)
         if cos >= 0.5:
-            return render_template('succ_search.html', username = username)
+            return jsonify({"success": True, "message": "Match found!"})
         else:
-            return render_template('no_match.html', username = username)
-    except:
-        return render_template("error_page.html")
+            return jsonify({"success": True, "message": "Match not found!"})
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"success": False, "message": "Something went wrong."})
 
 @app.route('/home_recog')
 def home_recog():
@@ -96,29 +124,55 @@ def home_recog():
     
     return render_template('home_recog.html',current_user = current_user, status = status)
 
-@app.route('/model_training')
+@app.route('/model_training', methods=["POST"])
 def model_training():
     try:
+        data = request.get_json()
+        image_data = data['image'].split(',')[1]
+        image_bytes = base64.b64decode(image_data)
+        np_arr = np.frombuffer(image_bytes, np.uint8)
+        img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
-        face = collect_data()
-    
-        embed_im = get_embeddings(face[0])
-        
-        username = session.get("username")   
-        query = {'Email' : username}
+        # Detect face
+        detector = MTCNN()
+        result = detector.detect_faces(img)
+        if len(result) == 0:
+            return jsonify({"success": False, "message": "No face detected"})
 
+        # Only one face detected, get embedding
+        face = result[0]['box']
+        x, y, w, h = face
+        face_img = img[y:y+h, x:x+w]
+
+        embed_im = get_embeddings(face_img)
+
+        username = session.get("username")
+        query = {'Email': username}
         newvalues = {
             "$set": {
                 "Face_model": "Scanned",
-                "Embedding": embed_im.tolist() # A list of face embeddings
+                "Embedding": embed_im.tolist()
             }
         }
+        db_collection.update_one(query, newvalues)
 
-        db_collection.update(query,newvalues)
+        return jsonify({"success": True, "message": "Face scanned!"})
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"success": False, "message": "Something went wrong."})
     
-        return render_template('succ_scan.html')
-    except:
-        return render_template("error_page.html")
+@app.route('/success')
+def success():
+    return render_template('succ_scan.html')
+
+app.route('/succ_search')
+def succ_search():
+    return render_template('succ_search.html')
+
+app.route('/no_match')
+def no_match():
+    return render_template('no_match.html')
+
 
 
 @app.route('/login_signup')
